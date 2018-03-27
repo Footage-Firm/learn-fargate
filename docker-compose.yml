@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+  web:
+    image: videoblocks/alpine-laravel:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7.16
+    mem_limit: 2048m
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/config/mysql:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: VBrootFTW!

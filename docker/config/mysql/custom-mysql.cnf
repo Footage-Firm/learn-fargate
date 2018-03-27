@@ -1,0 +1,11 @@
+[mysqld]
+innodb_log_file_size = 1024M
+innodb_buffer_pool_size = 512M
+innodb_file_per_table
+innodb_flush_method=O_DIRECT
+skip-host-cache
+skip-name-resolve
+sql-mode = "STRICT_ALL_TABLES"
+performance_schema=ON
+explicit_defaults_for_timestamp = 1
+innodb_file_per_table=0
