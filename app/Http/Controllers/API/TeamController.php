@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Jobs\TeamRegistrationJob;
 use App\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class TeamController extends Controller
 {
@@ -14,17 +17,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response(Team::all());
     }
 
     /**
@@ -35,7 +28,11 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teamName = $request->input('teamName');
+        Log::debug('Storing new Team', ['teamName' => $teamName]);
+        $team = Team::firstOrCreate(['name' => $teamName]);
+        TeamRegistrationJob::dispatch($team);
+        return response($team);
     }
 
     /**
@@ -46,18 +43,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Team $team)
-    {
-        //
+        return response($team);
     }
 
     /**

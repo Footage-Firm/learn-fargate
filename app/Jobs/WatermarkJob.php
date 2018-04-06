@@ -29,6 +29,17 @@ class WatermarkJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+
+        // get the job object
+
+
+        // download the source file
+
+        // watermark the file locally
+
+        // upload to the target directory
+
+        // complete the job
+
     }
 }

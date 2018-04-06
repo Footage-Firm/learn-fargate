@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::apiResource('teams', 'API\TeamController', ['only' => [
+    'index', 'store', 'show'
+]]);
