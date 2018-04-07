@@ -33,14 +33,15 @@ class TeamRegistrationJob implements ShouldQueue
     public function handle()
     {
         Log::info('Registering team.', ['teamName' => $this->team->name]);
+        $files = Storage::listContents();
+        $this->dispatchWatermarkJobs($files);
+    }
 
-        // Get list of files from S3 bucket.
-        $files = Storage::disk(config('filesystems.default'))->listContents();
-
-        // For each file in the S3 bucket, generate a watermarkjob and register it.
-        collect($files)->each(function($file) {
-            Log::debug('Dispatching watermark job.', ['file' => $file]);
-            WatermarkJob::dispatch($file);
+    private function dispatchWatermarkJobs(array $files): void {
+        collect($files)->each(function ($file) {
+            $filePath = $file['path'];
+            Log::debug('Dispatching watermark job.', ['filePath' => $filePath, 'teamName' => $this->team->name]);
+            WatermarkJob::dispatch($filePath, $this->team);
         });
     }
 }
