@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Services\PhotoStorageService;
 use App\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -9,13 +10,16 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class TeamRegistrationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /* @var Team */
     protected $team;
+
+    /* @var PhotoStorageService */
+    protected $storage;
 
     /**
      * @param Team $team
@@ -26,18 +30,25 @@ class TeamRegistrationJob implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
-     * @return void
+     * @param PhotoStorageService $storage
      */
-    public function handle()
+    public function handle(PhotoStorageService $storage)
     {
+        // inserted
+        $this->storage = $storage;
+
         Log::info('Registering team.', ['teamName' => $this->team->name]);
-        $files = Storage::listContents();
-        $this->dispatchWatermarkJobs($files);
+        $this->createTeamDirectory();
+        $this->dispatchWatermarkJobs();
     }
 
-    private function dispatchWatermarkJobs(array $files): void {
+    private function createTeamDirectory(): void
+    {
+        $this->storage->createTeamDirectory($this->team->name);
+    }
+
+    private function dispatchWatermarkJobs(): void {
+        $files = $this->storage->listSourcePhotos();
         collect($files)->each(function ($file) {
             $filePath = $file['path'];
             Log::debug('Dispatching watermark job.', ['filePath' => $filePath, 'teamName' => $this->team->name]);

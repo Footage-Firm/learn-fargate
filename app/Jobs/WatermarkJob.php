@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Services\PhotoStorageService;
 use App\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -9,21 +10,18 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use League\Flysystem\FileNotFoundException;
 
 class WatermarkJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /* @string */
+    /* @var string */
     protected $filePath;
-    /* @Team */
+    /* @var Team */
     protected $team;
-    /* @Storage */
-    protected $remoteFs;
-    /* @Storage */
-    protected $localFs;
+    /* @var PhotoStorageService */
+    protected $storage;
 
     /**
      * Create a new job instance.
@@ -34,8 +32,6 @@ class WatermarkJob implements ShouldQueue
     {
         $this->filePath = $filePath;
         $this->team = $team;
-        $this->remoteFs = Storage::getDriver();
-        $this->localFs = Storage::getDriver('local');
     }
 
     /**
@@ -44,8 +40,10 @@ class WatermarkJob implements ShouldQueue
      * @return void
      * @throws FileNotFoundException
      */
-    public function handle()
+    public function handle(PhotoStorageService $storage)
     {
+        // Injected
+        $this->storage = $storage;
 
         $filePath = $this->filePath;
         $team = $this->team;
@@ -53,8 +51,9 @@ class WatermarkJob implements ShouldQueue
 
         // download the source file
         Log::debug('Downloading image.', $context);
-        $stream = $this->remoteFs->readStream($filePath);
-        $this->localFs->putStream('copied_'.basename($filePath), $stream);
+        $stream = $this->photoFs->readStream($filePath);
+        $localFilePath = 'copied_'.basename($filePath);
+        $this->localFs->putStream($localFilePath, $stream);
 
         // watermark the file locally
         Log::warning('TODO: Watermarking image.', $context);

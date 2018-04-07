@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'local-cloud'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,12 +45,12 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/local'),
         ],
 
-        'local-photos' => [
+        'local-cloud' => [
             'driver' => 'local',
-            'root' => storage_path('app/photos'),
+            'root' => storage_path('app/cloud'),
         ],
 
         'public' => [
