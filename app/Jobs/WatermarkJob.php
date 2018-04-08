@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\PhotoStorageService;
+use App\Services\PhotoWatermarkService;
 use App\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -22,6 +23,8 @@ class WatermarkJob implements ShouldQueue
     protected $team;
     /* @var PhotoStorageService */
     protected $storage;
+    /* @var PhotoWatermarkService */
+    protected $watermarker;
 
     /**
      * Create a new job instance.
@@ -40,10 +43,11 @@ class WatermarkJob implements ShouldQueue
      * @return void
      * @throws FileNotFoundException
      */
-    public function handle(PhotoStorageService $storage)
+    public function handle(PhotoStorageService $storage, PhotoWatermarkService $watermarker)
     {
         // Injected
         $this->storage = $storage;
+        $this->watermarker = $watermarker;
 
         $filePath = $this->filePath;
         $team = $this->team;
@@ -51,12 +55,11 @@ class WatermarkJob implements ShouldQueue
 
         // download the source file
         Log::debug('Downloading image.', $context);
-        $stream = $this->photoFs->readStream($filePath);
-        $localFilePath = 'copied_'.basename($filePath);
-        $this->localFs->putStream($localFilePath, $stream);
+        $photoPath = $this->storage->downloadPhoto($filePath, basename($filePath));
 
         // watermark the file locally
         Log::warning('TODO: Watermarking image.', $context);
+        $this->watermarker->watermarkImage($photoPath);
 
         // upload to the target directory
         Log::warning('TODO: Uploading image to team directory.', $context);
