@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Services\PhotoWatermarkService;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PhotoWatermarkServiceTest extends TestCase {
@@ -18,5 +19,6 @@ class PhotoWatermarkServiceTest extends TestCase {
     /** @test */
     public function test_watermark() {
         $this->photoWatermarkService->watermarkImage('photo.jpg', 'watermarked.jpg');
+        $this->assertTrue(Storage::exists('watermarked.jpg'));
     }
 }
