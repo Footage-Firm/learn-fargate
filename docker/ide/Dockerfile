@@ -1,12 +1,17 @@
 # https://hub.docker.com/_/php/
-FROM php:7.1
-RUN pecl install xdebug-2.6.0 \
-    && docker-php-ext-enable xdebug
+FROM php:7.1-alpine
 
-RUN apt-get update \
-    && apt-get install -y libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache $PHPIZE_DEPS
 
-RUN pecl install imagick \
-    && docker-php-ext-enable imagick
+# Xdebug
+RUN pecl install xdebug-2.6.0
+RUN docker-php-ext-enable xdebug
 
+# Imagick
+RUN apk add --no-cache imagemagick-dev
+RUN apk add --no-cache libtool
+RUN pecl install imagick
+RUN docker-php-ext-enable imagick
+
+# MySQL
+RUN docker-php-ext-install pdo pdo_mysql
