@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Services\PhotoWatermarkService;
-use Intervention\Image\Facades\Image;
 use Tests\TestCase;
 
 class PhotoWatermarkServiceTest extends TestCase {
