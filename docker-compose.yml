@@ -15,6 +15,7 @@ services:
     build:
       dockerfile: docker/queue-worker/Dockerfile
       context: .
+    working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
     depends_on:
