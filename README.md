@@ -16,5 +16,16 @@ For this tutorial, you are going to need the following:
 ### Instructions
 - TODO
 
-# TODO
+---
+
+## Development
+
+#### Setup Database
+```bash
+docker-compose up -d db
+mysql -h 0.0.0.0 -u root -pVBrootFTW\! < docker/db/setup_db.sql
+php artisan migrate
+```
+
+## TODO
 - [ ] TODO: Use Cloudformation to set up S3+RDS+ECS?

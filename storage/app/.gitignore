@@ -1,3 +1,5 @@
 *
+!cloud/
+!local/
 !public/
 !.gitignore

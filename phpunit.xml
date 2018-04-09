@@ -28,5 +28,11 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
+
+        <env name="DB_DATABASE" value="learn-fargate-test"/>
+        <env name="DB_USERNAME" value="test"/>
+        <env name="DB_PASSWORD" value="fd289gbng84kjndaa903"/>
+        <env name="FILESYSTEM_CLOUD" value="test-cloud"/>
+        <env name="FILESYSTEM_DRIVER" value="test-local"/>
     </php>
 </phpunit>
