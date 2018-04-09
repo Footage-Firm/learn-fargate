@@ -45,28 +45,29 @@ class WatermarkJob implements ShouldQueue
      */
     public function handle(PhotoStorageService $storage, PhotoWatermarkService $watermarker)
     {
-        // Injected
         $this->storage = $storage;
         $this->watermarker = $watermarker;
 
         $filePath = $this->filePath;
-        $team = $this->team;
-        $context = ['filePath' => $filePath, 'teamName' => $team->name];
+        $teamName = $this->team->name;
+        $context = ['filePath' => $filePath, 'teamName' => $teamName];
 
         // download the source file
         Log::debug('Downloading image.', $context);
         $photoPath = $this->storage->downloadPhoto($filePath, basename($filePath));
 
-        // watermark the file locally
-        Log::warning('TODO: Watermarking image.', $context);
-        $this->watermarker->watermarkImage($photoPath);
+        // watermark the file locally]
+        Log::debug('Watermarking image.', $context);
+        $info = pathinfo($photoPath);
+        $this->watermarker->watermarkPhoto($photoPath);
 
         // upload to the target directory
-        Log::warning('TODO: Uploading image to team directory.', $context);
+        Log::debug('Uploading image to team directory.', $context);
+        $remotePath = 'teams/'.$teamName.'/'.$info['filename'].'_wm.'.$info['extension'];
+        $this->storage->uploadPhoto($photoPath, $remotePath);
 
         // complete the job
         Log::debug('Finished WatermarkJob.', $context);
-
     }
 
 }

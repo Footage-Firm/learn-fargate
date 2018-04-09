@@ -34,7 +34,6 @@ class TeamRegistrationJob implements ShouldQueue
      */
     public function handle(PhotoStorageService $storage)
     {
-        // inserted
         $this->storage = $storage;
 
         Log::info('Registering team.', ['teamName' => $this->team->name]);

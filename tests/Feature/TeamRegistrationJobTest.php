@@ -23,5 +23,6 @@ class TeamRegistrationJobTest extends TestCase
         $team = factory(Team::class)->create();
         TeamRegistrationJob::dispatch($team);
         $this->assertTrue(Storage::cloud()->exists('teams/'.$team->name));
+        $this->assertTrue(Storage::cloud()->exists('teams/'.$team->name.'/wheat-unwatermarked_wm.jpg'));
     }
 }

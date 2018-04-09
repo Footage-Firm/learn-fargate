@@ -64,6 +64,26 @@ class PhotoStorageService
     }
 
     /**
+     * @param string $localPath
+     * @param string [$remotePath] - Defaults to same path as $localPath.
+     *
+     * @return string - remote filepath
+     * @throws FileNotFoundException
+     */
+    public function uploadPhoto(string $localPath, ?string $remotePath = null): string
+    {
+        $remotePath = $remotePath ?? $localPath;
+
+        $stream = $this->localFs->readStream($localPath);
+        $success = $this->cloudFs->putStream($remotePath, $stream);
+        if (!$success) {
+            throw new RuntimeException('Could not upload file.');
+        }
+
+        return $remotePath;
+    }
+
+    /**
      * @param string $sourcePath
      * @param string $targetPath
      *

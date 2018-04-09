@@ -21,7 +21,7 @@ class PhotoWatermarkServiceTest extends TestCase {
         $sourcePath = 'photo-watermark-service-test/city-unwatermarked.jpg';
         $targetPath = 'city-watermarked.jpg';
         $this->assertTrue(Storage::exists($sourcePath));
-        $this->watermarker->watermarkImage($sourcePath, $targetPath);
+        $this->watermarker->watermarkPhoto($sourcePath, $targetPath);
         $this->assertTrue(Storage::exists($targetPath));
     }
 }

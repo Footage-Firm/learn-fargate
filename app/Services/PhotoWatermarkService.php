@@ -15,7 +15,7 @@ class PhotoWatermarkService
         $this->storage = $storage;
     }
 
-    public function watermarkImage(string $imagePath, ?string $outputPath = null): void
+    public function watermarkPhoto(string $imagePath, ?string $outputPath = null): void
     {
         $img = $this->getImage($imagePath);
         $w = $img->getWidth();
