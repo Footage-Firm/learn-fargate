@@ -28,7 +28,11 @@ class PhotoStorageService
 
     public function listSourcePhotos(): array
     {
-        return $this->cloudFs->listContents('source-photos');
+        return collect($this->cloudFs->listContents('source-photos'))
+            ->filter(function($file) {
+                return collect(['jpg','png'])->contains($file['extension']);
+            })
+            ->all();
     }
 
     public function createTeamDirectory(string $teamName): void
