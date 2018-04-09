@@ -21,13 +21,13 @@ class PhotoWatermarkService
         $w = $img->getWidth();
         $h = $img->getHeight();
 
-        $img = $img->text('WATERMARK', $w/2, $h/2, function (Font $font) {
+        $img = $img->text('FARGATE', $w/2, $h/2, function (Font $font) {
             $font->file(resource_path('fonts/SEGA.ttf'));
             $font->size(600);
             $font->color([255, 255, 255, 0.8]);
             $font->align('center');
             $font->valign('top');
-            $font->angle(40);
+            $font->angle(30);
         });
 
         $this->storage->saveLocalImage($img, $outputPath ?? $imagePath);

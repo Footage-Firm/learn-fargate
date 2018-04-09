@@ -24,5 +24,6 @@ class TeamRegistrationJobTest extends TestCase
         TeamRegistrationJob::dispatch($team);
         $this->assertTrue(Storage::cloud()->exists('teams/'.$team->name));
         $this->assertTrue(Storage::cloud()->exists('teams/'.$team->name.'/wheat-unwatermarked_wm.jpg'));
+        $this->assertFalse(Storage::disk()->exists('wheat-unwatermarked.jpg'));
     }
 }

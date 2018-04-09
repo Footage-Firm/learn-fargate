@@ -70,7 +70,7 @@ class PhotoStorageService
      * @return string - remote filepath
      * @throws FileNotFoundException
      */
-    public function uploadPhoto(string $localPath, ?string $remotePath = null): string
+    public function uploadAndDeletePhoto(string $localPath, ?string $remotePath = null): string
     {
         $remotePath = $remotePath ?? $localPath;
 
@@ -79,6 +79,9 @@ class PhotoStorageService
         if (!$success) {
             throw new RuntimeException('Could not upload file.');
         }
+
+        // Delete local file now that it has been uploaded.
+        $this->localFs->delete($localPath);
 
         return $remotePath;
     }

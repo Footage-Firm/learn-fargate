@@ -64,7 +64,7 @@ class WatermarkJob implements ShouldQueue
         // upload to the target directory
         Log::debug('Uploading image to team directory.', $context);
         $remotePath = 'teams/'.$teamName.'/'.$info['filename'].'_wm.'.$info['extension'];
-        $this->storage->uploadPhoto($photoPath, $remotePath);
+        $this->storage->uploadAndDeletePhoto($photoPath, $remotePath);
 
         // complete the job
         Log::debug('Finished WatermarkJob.', $context);
