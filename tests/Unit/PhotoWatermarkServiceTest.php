@@ -9,16 +9,19 @@ use Tests\TestCase;
 class PhotoWatermarkServiceTest extends TestCase {
 
     /* @var PhotoWatermarkService */
-    protected $photoWatermarkService;
+    protected $watermarker;
 
     public function setUp() {
         parent::setUp();
-        $this->photoWatermarkService = $this->app->make(PhotoWatermarkService::class);
+        $this->watermarker = $this->app->make(PhotoWatermarkService::class);
     }
 
     /** @test */
     public function test_watermark() {
-        $this->photoWatermarkService->watermarkImage('photo.jpg', 'watermarked.jpg');
-        $this->assertTrue(Storage::exists('watermarked.jpg'));
+        $sourcePath = 'photo-watermark-service-test/city-unwatermarked.jpg';
+        $targetPath = 'city-watermarked.jpg';
+        $this->assertTrue(Storage::exists($sourcePath));
+        $this->watermarker->watermarkImage($sourcePath, $targetPath);
+        $this->assertTrue(Storage::exists($targetPath));
     }
 }
