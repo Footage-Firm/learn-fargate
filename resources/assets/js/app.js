@@ -15,7 +15,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('existing-teams', require('./components/ExistingTeams.vue'));
+Vue.component('team-registration', require('./components/TeamRegistrationForm.vue'));
 
 const app = new Vue({
     el: '#app'

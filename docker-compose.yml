@@ -1,10 +1,13 @@
 version: '2.1'
 services:
   web:
-    image: videoblocks/alpine-laravel:latest
+    image: learn-fargate:web
+    build:
+      dockerfile: docker/web/Dockerfile
+      context: .
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -12,6 +15,7 @@ services:
       - db
 
   worker:
+    image: learn-fargate:worker
     build:
       dockerfile: docker/queue-worker/Dockerfile
       context: .
@@ -29,4 +33,4 @@ services:
     volumes:
       - ./docker/config/mysql:/etc/mysql/conf.d
     environment:
-      MYSQL_ROOT_PASSWORD: VBrootFTW!
+      MYSQL_ROOT_PASSWORD: password

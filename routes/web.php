@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@app');
 
 Route::apiResource('teams', 'API\TeamController', ['only' => [
     'index', 'store', 'show'
