@@ -19,7 +19,6 @@
 
 <!-- Global Spark Object -->
     <script>
-        // TODO: move to a helper method, similar to Spark above, as this grows
         window.config = {
             pusher: {
                 key: <?= json_encode(config('broadcasting.connections.pusher.key')) ?>,
@@ -30,9 +29,10 @@
 </head>
 <body>
 
-<p>Hey</p>
-
-<div id="app"></div>
+<div id="app">
+    <existing-teams :teams="{{{ json_encode($teams) }}}"></existing-teams>
+    <team-registration></team-registration>
+</div>
 
 <!-- JavaScript -->
 <script src="{{ mix('js/app.js') }}"></script>

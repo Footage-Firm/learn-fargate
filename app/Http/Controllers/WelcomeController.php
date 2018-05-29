@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class WelcomeController extends Controller
 {
     public function app()
     {
-        return view('app');
+        $teams = ['team 1', 'team 2'];
+        return view('app', compact('teams'));
     }
 }
