@@ -50,7 +50,7 @@ class WatermarkJob implements ShouldQueue
 
         $filePath = $this->filePath;
         $teamName = $this->team->name;
-        $context = ['filePath' => $filePath, 'teamName' => $teamName];
+        $context = compact('filePath', 'teamName');
 
         // download the source file
         Log::debug('Downloading image.', $context);
@@ -59,11 +59,12 @@ class WatermarkJob implements ShouldQueue
         // watermark the file locally]
         Log::debug('Watermarking image.', $context);
         $info = pathinfo($photoPath);
-        $this->watermarker->watermarkPhoto($photoPath);
+        $this->watermarker->watermarkPhoto($photoPath, $teamName);
 
         // upload to the target directory
-        Log::debug('Uploading image to team directory.', $context);
         $remotePath = 'teams/'.$teamName.'/'.$info['filename'].'_wm.'.$info['extension'];
+        $context['remotePath'] = $remotePath;
+        Log::debug('Uploading image to team directory.', $context);
         $this->storage->uploadAndDeletePhoto($photoPath, $remotePath);
 
         // complete the job

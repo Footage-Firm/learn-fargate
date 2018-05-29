@@ -11,20 +11,18 @@ For this tutorial, you are going to need the following:
 - (Optional) [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
 ### Setup
+
 - `artisan db:setup` Setup database (hostname and password are hard-coded).
 - `artisan migrate` Migrate tables (ensure the correct db host is provided).
 - `APP_ENV=testing artisan migrate`  Migrate testing tables.
 
-### Instructions
-- TODO
-
 ---
 
-## Development
-
-### Setup Database
-```bash
-docker-compose up -d db
-mysql -h 0.0.0.0 -u root -ppassword < docker/db/setup_db.sql
-php artisan migrate
-```
+### Todo:
+- [ ] Setup Route53 to point to service.
+- [ ] Get prod dockerfile working, gitignore .env file, get worker dockerfile working.
+- [ ] Setup production S3 bucket and source-files (readonly and public).
+- [ ] Setup custom queues for each team.
+- [ ] Store results/progress in the backend and propagate to the front-end.
+- [ ] Go through entire process for a pretend team.
+- [ ] Finish README.

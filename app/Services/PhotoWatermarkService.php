@@ -15,13 +15,13 @@ class PhotoWatermarkService
         $this->storage = $storage;
     }
 
-    public function watermarkPhoto(string $imagePath, ?string $outputPath = null): void
+    public function watermarkPhoto(string $imagePath, ?string $text = 'FARGATE', ?string $outputPath = null): void
     {
         $img = $this->getImage($imagePath);
         $w = $img->getWidth();
         $h = $img->getHeight();
 
-        $img = $img->text('FARGATE', $w/2, $h/2, function (Font $font) {
+        $img = $img->text($text, $w/2, $h/2, function (Font $font) {
             $font->file(resource_path('fonts/SEGA.ttf'));
             $font->size(600);
             $font->color([255, 255, 255, 0.8]);
