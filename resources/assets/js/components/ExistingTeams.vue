@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <section class="form">
                             <li v-for="team in teams">
-                                {{ team }}
+                                {{ team.name }}
                             </li>
                         </section>
                     </div>

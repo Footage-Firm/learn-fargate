@@ -47,8 +47,10 @@ class TeamRegistrationJob implements ShouldQueue
     }
 
     private function dispatchWatermarkJobs(): void {
-        $files = $this->storage->listSourcePhotos();
-        collect($files)->each(function ($file) {
+        $files = collect($this->storage->listSourcePhotos());
+        $numJobs = config('jobs.watermark.numJobs');
+        collect(range(1, $numJobs))->each(function ($i) use ($files) {
+            $file = $files->random();
             $filePath = $file['path'];
             Log::debug('Dispatching watermark job.', ['filePath' => $filePath, 'teamName' => $this->team->name]);
             WatermarkJob::dispatch($filePath, $this->team);

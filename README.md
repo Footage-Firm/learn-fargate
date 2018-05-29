@@ -11,7 +11,9 @@ For this tutorial, you are going to need the following:
 - (Optional) [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
 ### Setup
-- TODO
+- `artisan db:setup` Setup database (hostname and password are hard-coded).
+- `artisan migrate` Migrate tables (ensure the correct db host is provided).
+- `APP_ENV=testing artisan migrate`  Migrate testing tables.
 
 ### Instructions
 - TODO

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
+
 class WelcomeController extends Controller
 {
     public function app()
     {
-        $teams = ['team 1', 'team 2'];
+        $teams = Team::all();
         return view('app', compact('teams'));
     }
 }

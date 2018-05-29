@@ -29,6 +29,11 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $teamName = $request->input('teamName');
+
+        if (!$teamName) {
+            return response('Missing body parameter: teamName', 400);
+        }
+
         Log::debug('Storing new Team', ['teamName' => $teamName]);
         $team = Team::firstOrCreate(['name' => $teamName]);
         TeamRegistrationJob::dispatch($team);
