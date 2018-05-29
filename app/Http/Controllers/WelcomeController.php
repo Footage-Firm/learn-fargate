@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
 {
-    public function show()
+    public function app()
     {
-        return view('welcome');
+        return view('app');
     }
 }

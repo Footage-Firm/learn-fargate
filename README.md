@@ -23,6 +23,6 @@ For this tutorial, you are going to need the following:
 ### Setup Database
 ```bash
 docker-compose up -d db
-mysql -h 0.0.0.0 -u root -pVBrootFTW\! < docker/db/setup_db.sql
+mysql -h 0.0.0.0 -u root -ppassword < docker/db/setup_db.sql
 php artisan migrate
 ```
