@@ -76,7 +76,7 @@ For this tutorial, you are going to need the following:
     $ aws ecs run-task --cluster learn-fargate \
     --task-definition learn-fargate-roughnecks:1 --launch-type FARGATE \
     --network-configuration "awsvpcConfiguration={subnets=[subnet-f83be2d3],securityGroups=[sg-69445911],assignPublicIp=ENABLED}" \
-    --count 10
+    --count 1
     ```
     You can also launch tasks via the console.
 1. Launch away!
