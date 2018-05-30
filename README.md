@@ -27,6 +27,9 @@ For this tutorial, you are going to need the following:
             ```shell
             $ docker-compose build worker
             ```
+        1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
+            - One is uploaded at https://s3.amazonaws.com/learn-fargate/.env.production
+            - Make sure you have an AWS Key and Secret defined.
         1. Create your Dockerfile in the root directory (or wherever):
             ```Dockerfile
             FROM learn-fargate:worker
@@ -41,8 +44,6 @@ For this tutorial, you are going to need the following:
             # Set team name in your environment
             ENV TEAM_NAME="Roughnecks"
             ```
-        1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
-            - One is uploaded at https://s3.amazonaws.com/learn-fargate/.env.production
         1. Build your image:
             ```shell
             $ docker build . -t learn-fargate:roughnecks
