@@ -38,11 +38,17 @@ For this tutorial, you are going to need the following:
             # Set team name in your environment
             ENV TEAM_NAME="Roughnecks"
             ```
+        1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
         1. Build your image:
             ```shell
             $ docker build . -t learn-fargate:roughnecks
             ```
-        1. ...
+        1. Run the image locally.
+1. Next, we want to get your image into Elastic Container Registry. This is where
+    1. Login to ECR
+    1. Tag your image with the ECR repository tag
+    1. Push the tagged image to ECR
+        1.
 
 
 

@@ -9,8 +9,8 @@ services:
       - 80:80
       - 443:443
     working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
+#    volumes:
+#      - ./:/var/www/html
     depends_on:
       - db
 

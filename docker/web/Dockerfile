@@ -1,23 +1,32 @@
+FROM node:8 as frontend
+WORKDIR /app
+COPY package.json package.json
+RUN yarn
+COPY ./resources ./resources
+COPY ./webpack.mix.js .
+RUN yarn run production
+
 FROM videoblocks/alpine-laravel:latest
 
-# Copy in the files from the builder
-COPY . /var/www/html
+# base composer deps
+COPY composer.json .
+COPY composer.lock .
+RUN composer install --no-progress --no-dev --no-autoloader
 
-# Install yarn
-#RUN apk --no-cache add yarn
+# source code
+COPY . .
 
-# Install dependencies
-#RUN composer install
-#RUN yarn
-#RUN yarn run production
-#RUN cp .env.local .env
+# autoloader
+RUN composer install --no-progress --no-dev -o
 
-# Save space
-#RUN rm -rf node_modules
-#RUN apk del yarn
+# configs
+RUN cp .env.production .env
 
-# Set file permissions
+# permissions for laravel
 RUN chmod -R 777 storage && chmod -R 777 bootstrap/cache
+
+COPY --from=frontend /app/public/css public/css
+COPY --from=frontend /app/public/js public/js
 
 # Configure Laravel
 RUN php artisan view:clear
