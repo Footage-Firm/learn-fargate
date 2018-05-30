@@ -33,6 +33,8 @@ For this tutorial, you are going to need the following:
             COPY . /var/www/html
             RUN composer install
 
+            RUN cp .env.production .env
+
             # Set file permissions
             RUN chmod -R 777 storage && chmod -R 777 bootstrap/cache
 
@@ -40,6 +42,7 @@ For this tutorial, you are going to need the following:
             ENV TEAM_NAME="Roughnecks"
             ```
         1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
+            - One is uploaded at https://s3.console.aws.amazon.com/s3/buckets/learn-fargate/.env.production
         1. Build your image:
             ```shell
             $ docker build . -t learn-fargate:roughnecks
