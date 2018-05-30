@@ -18,3 +18,8 @@ _ide_helper.php
 .phpstorm.meta.php
 supervisord.pid
 docker-compose.override.yml
+
+# ignore the dockerfile we tell people to make in the tutorial
+Dockerfile
+# ignore the environment production file we will give to people
+.env.production
