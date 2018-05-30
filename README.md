@@ -69,7 +69,10 @@ For this tutorial, you are going to need the following:
         - Task Role: ecsTaskExecutionRole
         - Task memory: < _what RAM does an image encoding task require?_ >
         - Task CPU: < _what CPU does an image encoding task require?_ >
-        - Container: TODO
+        - Add container:
+            - Container name: < _whatever_ >
+            - Image: 031780582162.dkr.ecr.us-east-1.amazonaws.com/learn-fargate:roughnecks
+        - Create!
 
 1. Once the task is ready, lauching it is as simple as running a few commands:
     ```shell
@@ -79,7 +82,7 @@ For this tutorial, you are going to need the following:
     --count 1
     ```
     You can also launch tasks via the console.
-1. Launch away!
+1. Launch away! Check your progress here: http://learn-fargate.videoblocksdev.com/progress
 
 ---
 
@@ -95,8 +98,5 @@ For this tutorial, you are going to need the following:
 ---
 
 ### Todo:
-- [ ] Setup Route53 to point to service.
-- [ ] Go through entire process for a pretend team.
-- [ ] Finish README.
 - [ ] Create IAM with limited permissions (or just a temp one)
-- [ ] Check that files are uploaded with random suffix.
+- [ ] Cloudformation!
