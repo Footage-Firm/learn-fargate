@@ -37,6 +37,7 @@ For this tutorial, you are going to need the following:
             COPY . /var/www/html
             RUN composer install
 
+            COPY ./docker/queue-worker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
             RUN cp .env.production .env
 
             # Set file permissions
