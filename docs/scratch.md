@@ -46,3 +46,11 @@ docker-compose up --scale worker=4 <?>
     # List info in ecs
     awless list containerclusters
     ```
+
+
+#### Build default-worker
+```
+docker build . --dockerfile docker/default-worker/Dockerfile -t learn-fargate:default-worker
+docker tag learn-fargate:default-worker 031780582162.dkr.ecr.us-east-1.amazonaws.com/learn-fargate:default-worker
+docker push 031780582162.dkr.ecr.us-east-1.amazonaws.com/learn-fargate:default-worker
+```

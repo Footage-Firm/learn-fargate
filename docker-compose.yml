@@ -12,6 +12,8 @@ services:
       - ./:/var/www/html
     depends_on:
       - db
+    environment:
+      APP_ENV:
 
   worker:
     image: learn-fargate:worker
@@ -24,6 +26,7 @@ services:
     depends_on:
       - db
     environment:
+      APP_ENV:
       TEAM_NAME:
 
   db:

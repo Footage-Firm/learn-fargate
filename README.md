@@ -20,6 +20,7 @@ For this tutorial, you are going to need the following:
 1. Choose your teammates (in the real world), decide on a team name, and then enter your team in the "Register New Team!" form.
     - Registering your team will launch 10,000 "WatermarkJob" jobs in the queue which is designed to download an image from S3, watermark it, and upload it to your team's S3 folder.
     - The jobs will not begin executing until you create a worker to take items off of your queue!
+    - Note: You should see your team directory in here: https://s3.console.aws.amazon.com/s3/buckets/learn-fargate/teams
 1. Now it's time to create your worker image.
     1. First, you'll need to create a Dockerfile which extends "learn-fargate:worker":
         1. Build the "learn-fargate:worker" image:
@@ -43,7 +44,10 @@ For this tutorial, you are going to need the following:
             ```shell
             $ docker build . -t learn-fargate:roughnecks
             ```
-        1. Run the image locally.
+        1. Run the image locally just to see if it works:
+            ```shell
+            $ docker run --rm -it learn-fargate:roughnecks
+            ```
 1. Next, we want to get your image into Elastic Container Registry. This is where
     1. Login to ECR:
         ```shell
@@ -67,17 +71,17 @@ For this tutorial, you are going to need the following:
         - Task CPU: < _what CPU does an image encoding task require?_ >
         - Container: ...
 
+1. Once the task is ready, lauching it is as simple as running a few commands:
+    ```shell
+    $ aws ecs run-task --cluster learn-fargate --task-definition learn-fargate-roughnecks:1 --count 1 --launch-type FARGATE
+    ```
+    You can also launch tasks via the console.
 
 
 
 
 
-1. run locally
-!!! show output to one of the presenters
-1. push
-  4a. login to ECR
-1. create ECS task definition
-1. describe learn-fargate cluster
+
 1. run task on learn-fargate cluster
   7a. containerblocks explanation of cluster/service
 !!! show output to one of the presenters
@@ -98,9 +102,6 @@ For this tutorial, you are going to need the following:
 
 ### Todo:
 - [ ] Setup Route53 to point to service.
-- [ ] Get prod dockerfile working, gitignore .env file, get worker dockerfile working.
-- [ ] Setup production S3 bucket and source-files (readonly and public).
-- [ ] Setup custom queues for each team.
-- [ ] Store results/progress in the backend and propagate to the front-end.
 - [ ] Go through entire process for a pretend team.
 - [ ] Finish README.
+- [ ] Create IAM with limited permissions (or just a temp one)
