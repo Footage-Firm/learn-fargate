@@ -28,9 +28,10 @@ For this tutorial, you are going to need the following:
             $ docker-compose build worker
             ```
         1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
-            - One is uploaded at https://s3.amazonaws.com/learn-fargate/.env.production
+            - One is uploaded at https://s3.amazonaws.com/learn-fargate/.env.production (you have to navigate to the S3 console to donwload it because it is private).
             - Make sure you have an AWS Key and Secret defined.
         1. Create your Dockerfile in the root directory (or wherever):
+
             ```Dockerfile
             FROM learn-fargate:worker
             COPY . /var/www/html
