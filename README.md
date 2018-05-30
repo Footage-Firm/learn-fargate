@@ -20,7 +20,7 @@ For this tutorial, you are going to need the following:
 1. Choose your teammates (in the real world), decide on a team name, and then enter your team in the "Register New Team!" form.
     - Registering your team will launch 10,000 "WatermarkJob" jobs in the queue which is designed to download an image from S3, watermark it, and upload it to your team's S3 folder.
     - The jobs will not begin executing until you create a worker to take items off of your queue!
-    - Note: You should see your team directory in S3 after a minute or two: https://s3.console.aws.amazon.com/s3/buckets/learn-fargate/teams
+    - Note: You should see your team directory in S3 after a minute or two: https://s3.amazonaws.com/learn-fargate/teams
 1. Now it's time to create your worker image.
     1. First, you'll need to create a Dockerfile which extends "learn-fargate:worker":
         1. Build the "learn-fargate:worker" image:
@@ -42,7 +42,7 @@ For this tutorial, you are going to need the following:
             ENV TEAM_NAME="Roughnecks"
             ```
         1. Create your own `.env.production` file or get a copy from someone else. This will have the production database information.
-            - One is uploaded at https://s3.console.aws.amazon.com/s3/buckets/learn-fargate/.env.production
+            - One is uploaded at https://s3.amazonaws.com/learn-fargate/.env.production
         1. Build your image:
             ```shell
             $ docker build . -t learn-fargate:roughnecks
