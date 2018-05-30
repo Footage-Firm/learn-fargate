@@ -69,23 +69,16 @@ For this tutorial, you are going to need the following:
         - Task Role: ecsTaskExecutionRole
         - Task memory: < _what RAM does an image encoding task require?_ >
         - Task CPU: < _what CPU does an image encoding task require?_ >
-        - Container: ...
+        - Container: TODO
 
 1. Once the task is ready, lauching it is as simple as running a few commands:
     ```shell
-    $ aws ecs run-task --cluster learn-fargate --task-definition learn-fargate-roughnecks:1 --count 1 --launch-type FARGATE
+    $ aws ecs run-task --cluster learn-fargate \
+    --task-definition learn-fargate-roughnecks:1 --count 1 --launch-type FARGATE \
+    --network-configuration "awsvpcConfiguration={subnets=[subnet-f83be2d3],securityGroups=[sg-69445911],assignPublicIp=ENABLED}"
     ```
     You can also launch tasks via the console.
-
-
-
-
-
-
-1. run task on learn-fargate cluster
-  7a. containerblocks explanation of cluster/service
-!!! show output to one of the presenters
-1. scale. compete. win. thrive.
+1. Launch away!
 
 ---
 
