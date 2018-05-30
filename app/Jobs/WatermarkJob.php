@@ -67,6 +67,9 @@ class WatermarkJob implements ShouldQueue
         Log::debug('Uploading image to team directory.', $context);
         $this->storage->uploadAndDeletePhoto($photoPath, $remotePath);
 
+        // increment the completed tasks number for the team
+        $this->team->incrementCompletedTasks();
+
         // complete the job
         Log::debug('Finished WatermarkJob.', $context);
     }

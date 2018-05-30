@@ -19,7 +19,7 @@ class TeamApiTest extends TestCase
         $this
             ->json('POST', '/teams', ['teamName' => 'A Testing Team Name'])
             ->assertJsonStructure([
-                'name', 'updated_at', 'created_at', 'id'
+                'id', 'name', 'total_tasks', 'completed_tasks', 'updated_at', 'created_at'
             ]);
     }
 }

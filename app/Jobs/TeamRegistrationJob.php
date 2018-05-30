@@ -55,5 +55,9 @@ class TeamRegistrationJob implements ShouldQueue
             Log::debug('Dispatching watermark job.', ['filePath' => $filePath, 'teamName' => $this->team->name]);
             WatermarkJob::dispatch($filePath, $this->team)->onQueue($this->team->name);
         });
+
+        // Set total tasks
+        $this->team->total_tasks = $numJobs;
+        $this->team->save();
     }
 }
