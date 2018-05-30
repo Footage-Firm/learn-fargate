@@ -9,8 +9,8 @@ services:
       - 80:80
       - 443:443
     working_dir: /var/www/html
-#    volumes:
-#      - ./:/var/www/html
+    volumes:
+      - ./:/var/www/html
     depends_on:
       - db
 
@@ -25,6 +25,8 @@ services:
       - ./docker/queue-worker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
     depends_on:
       - db
+    environment:
+      TEAM_NAME:
 
   db:
     image: mysql:5.7.16
