@@ -45,10 +45,29 @@ For this tutorial, you are going to need the following:
             ```
         1. Run the image locally.
 1. Next, we want to get your image into Elastic Container Registry. This is where
-    1. Login to ECR
-    1. Tag your image with the ECR repository tag
-    1. Push the tagged image to ECR
-        1.
+    1. Login to ECR:
+        ```shell
+        $ $(aws ecr get-login --no-include-email --region us-east-1)
+        ```
+    1. Tag your image with the ECR repository tag:
+        ```shell
+        $ docker tag learn-fargate:roughnecks 031780582162.dkr.ecr.us-east-1.amazonaws.com/learn-fargate:roughnecks
+        ```
+    1. Push the tagged image to ECR:
+        ```shell
+        $ docker push 031780582162.dkr.ecr.us-east-1.amazonaws.com/learn-fargate:roughnecks
+        ```
+1. Now that our docker image is in ECR, ECS will have access to it. Now it's time to create our task.
+    1. Navigate to https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters.
+    1. On the left-hand side, click on "Task Definitions" > "Create new Task Definition."
+    1. Select "Fargate" and then proceed to enter the necessary configs:
+        - Name: < _whatever you wish_ >
+        - Task Role: ecsTaskExecutionRole
+        - Task memory: < _what RAM does an image encoding task require?_ >
+        - Task CPU: < _what CPU does an image encoding task require?_ >
+        - Container: ...
+
+
 
 
 

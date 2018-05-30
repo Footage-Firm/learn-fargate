@@ -8,7 +8,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
     depends_on:
@@ -19,7 +18,6 @@ services:
     build:
       dockerfile: docker/queue-worker/Dockerfile
       context: .
-    working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
       - ./docker/queue-worker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
