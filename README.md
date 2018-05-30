@@ -83,6 +83,7 @@ For this tutorial, you are going to need the following:
     ```
     You can also launch tasks via the console.
 1. Launch away! Check your progress here: http://learn-fargate.videoblocksdev.com/progress
+    - See you task in-the-flesh: https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters/learn-fargate/tasks
 
 ---
 
