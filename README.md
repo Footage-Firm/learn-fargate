@@ -99,3 +99,4 @@ For this tutorial, you are going to need the following:
 - [ ] Go through entire process for a pretend team.
 - [ ] Finish README.
 - [ ] Create IAM with limited permissions (or just a temp one)
+- [ ] Check that files are uploaded with random suffix.

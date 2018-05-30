@@ -62,7 +62,7 @@ class WatermarkJob implements ShouldQueue
         $this->watermarker->watermarkPhoto($photoPath, $teamName);
 
         // upload to the target directory
-        $remotePath = 'teams/'.$teamName.'/'.$info['filename'].'_wm.'.$info['extension'];
+        $remotePath = 'teams/'.$teamName.'/'.$info['filename'].$this->generateRandomString(9).'_wm.'.$info['extension'];
         $context['remotePath'] = $remotePath;
         Log::debug('Uploading image to team directory.', $context);
         $this->storage->uploadAndDeletePhoto($photoPath, $remotePath);
@@ -72,6 +72,16 @@ class WatermarkJob implements ShouldQueue
 
         // complete the job
         Log::debug('Finished WatermarkJob.', $context);
+    }
+
+    private function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
 }
