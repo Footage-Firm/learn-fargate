@@ -87,9 +87,9 @@ For this tutorial, you are going to need the following:
 
 - `composer install && npm install`
 - `docker-compose up -d db`
-- `artisan db:setup` Setup database (hostname and password are hard-coded).
-- `artisan migrate` Migrate tables (ensure the correct db host is provided).
-- `APP_ENV=testing artisan migrate`  Migrate testing tables.
+- `php artisan db:setup` Setup database (hostname and password are hard-coded).
+- `php artisan migrate` Migrate tables (ensure the correct db host is provided).
+- `APP_ENV=testing php artisan migrate`  Migrate testing tables.
 - `docker-compose up -d web`
 
 ---
