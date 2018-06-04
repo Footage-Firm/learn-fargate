@@ -14,7 +14,22 @@ For this tutorial, you are going to need the following:
 - [Docker](https://www.docker.com/) (with docker-compose)
 - (Optional) [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
-### Steps
+### Application Set-Up
+
+To get the tutorial ready for users, you'll need to do the following:
+
+1. Setup an S3 bucket with a _source-photos_ directory filled with the images you want to watermark (the number of photos does not matter) and a _teams_ directory to hold the team folders.
+1. Create a production MySQL database.
+1. Run `php artisan db:setup` and `php artisan migrate` against your production database to create the schemas needed for the app.
+1. Deploy the web application and default queue worker to some production environment. For our workshop, we deployed to ECS:
+    1. Build the web image: `docker build . --file docker/web/Dockerfile`
+    1. Build the default queue worker image: `docker-compose build worker && docker build . --file docker/queue-worker/Dockerfile`
+    1. Push to ECR, then create a Cluster, Task Definition (with both the web and worker containers), and Service.
+1. (Optional) Create an IAM user with limited permissions and distribute the public/private keys to workshop users.
+
+For the rest of this tutorial, we will assume that the S3 bucket exists at s3://learn-fargate, and that the web application is deployed to http://learn-fargate.videoblocksdev.com (with a default queue worker running).
+
+### Tutorial Steps
 
 1. Navigate your browser to http://learn-fargate.videoblocksdev.com
 1. Choose your teammates (in the real world), decide on a team name, and then enter your team in the "Register New Team!" form.
